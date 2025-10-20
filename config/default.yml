@@ -1,0 +1,15 @@
+Sage/Capybara/PreferNoMethods:
+  Description: 'Use `has_no_*?` instead of `!has_*?` for Capybara matchers to handle asynchronous behavior.'
+  Enabled: true
+  VersionAdded: '0.1'
+  StyleGuide: 'https://github.com/teamcapybara/capybara#asynchronous-javascript-ajax-and-friends'
+
+Sage/Capybara/AvoidExplicitVisible:
+  Description: 'Avoid explicit `visible: true` in Capybara matchers as it is the default behavior.'
+  Enabled: true
+  VersionAdded: '0.1'
+
+Sage/RSpec/NoEnvAssignment:
+  Description: 'Use ClimateControl to modify ENV in tests instead of direct assignment.'
+  Enabled: true
+  VersionAdded: '0.1'

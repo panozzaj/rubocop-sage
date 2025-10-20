@@ -1,0 +1,12 @@
+require:
+  - rubocop-sage
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.7
+
+Sage/Capybara/PreferNoMethods:
+  Enabled: true
+
+Sage/Capybara/AvoidExplicitVisible:
+  Enabled: true
