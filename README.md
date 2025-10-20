@@ -98,6 +98,68 @@ expect(page).to have_selector('.container', visible: true)
 
 ---
 
+#### `Sage/Capybara/NoWaitZero`
+
+Avoid `wait: 0` in Capybara finders as it disables waiting and causes flaky tests.
+
+Using `wait: 0` explicitly disables Capybara's waiting behavior, which leads to flaky tests. Elements may not be ready yet when the finder executes, causing intermittent failures especially in CI environments.
+
+**Bad:**
+```ruby
+page.first('.navigation-menu', wait: 0).click
+page.all('.items', wait: 0).count
+page.find('.button', wait: 0)
+```
+
+**Good:**
+```ruby
+page.first('.navigation-menu').click
+page.all('.items').count
+page.find('.button')
+
+# Acceptable - explicit positive wait time
+page.first('.navigation-menu', wait: 5).click
+```
+
+**Configuration:**
+```yaml
+Sage/Capybara/NoWaitZero:
+  Enabled: true
+```
+
+---
+
+#### `Sage/Capybara/MatchStyle`
+
+Prefer `first()` or `match: :first` over `all().first`, and verify count before using `all().last`.
+
+Using `.first` or `.last` on the result of `.all()` can be flaky because the collection might not be fully loaded when you access it. For `.first`, use the `first()` finder method or `match: :first` option. For `.last`, verify the element count first.
+
+**Bad:**
+```ruby
+page.all('.items').first
+page.all('.items').first.click
+page.all('.items').last  # Flaky: last element might not be loaded yet
+```
+
+**Good:**
+```ruby
+page.first('.items').click
+page.all('.items', match: :first)
+
+# For .last, verify count first
+page.all('.items', minimum: 1).last
+page.all('.items', count: 5).last
+```
+
+**Configuration:**
+```yaml
+Sage/Capybara/MatchStyle:
+  Enabled: true
+```
+
+---
+
 ### RSpec
 
 #### `Sage/RSpec/NoEnvAssignment`
@@ -138,6 +200,90 @@ Sage/RSpec/NoEnvAssignment:
 Add to your Gemfile:
 ```ruby
 gem 'climate_control'
+```
+
+---
+
+#### `Sage/RSpec/NoConditionals`
+
+Avoid conditional statements in test examples for deterministic tests.
+
+Conditional logic (if/unless/case) in tests obscures intent and indicates non-deterministic behavior. Tests should have predictable, linear execution. If you need conditional behavior, use context blocks to separate test cases.
+
+**Bad:**
+```ruby
+it 'processes the order' do
+  if user.premium?
+    expect(order.discount).to eq(20)
+  else
+    expect(order.discount).to eq(0)
+  end
+end
+
+it 'clicks button if present' do
+  button.click if page.has_css?('.submit-button')
+end
+```
+
+**Good:**
+```ruby
+context 'when user is premium' do
+  it 'applies discount' do
+    expect(order.discount).to eq(20)
+  end
+end
+
+context 'when user is not premium' do
+  it 'does not apply discount' do
+    expect(order.discount).to eq(0)
+  end
+end
+```
+
+**Configuration:**
+```yaml
+Sage/RSpec/NoConditionals:
+  Enabled: true
+```
+
+---
+
+#### `Sage/RSpec/NoRescue`
+
+Avoid rescue blocks in test examples. Tests should fail loudly.
+
+Using rescue in tests hides failures and makes tests pass when they should fail. Tests should fail loudly when something goes wrong. If you need to test error handling, use `expect { }.to raise_error(...)` instead.
+
+**Bad:**
+```ruby
+it 'processes data' do
+  begin
+    process_data(invalid_input)
+  rescue StandardError
+    # silently ignore errors
+  end
+end
+
+it 'saves record' do
+  record.save rescue nil
+end
+```
+
+**Good:**
+```ruby
+it 'raises an error for invalid input' do
+  expect { process_data(invalid_input) }.to raise_error(ValidationError)
+end
+
+it 'saves the record' do
+  expect(record.save).to be true
+end
+```
+
+**Configuration:**
+```yaml
+Sage/RSpec/NoRescue:
+  Enabled: true
 ```
 
 ---

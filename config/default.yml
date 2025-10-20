@@ -9,7 +9,27 @@ Sage/Capybara/AvoidExplicitVisible:
   Enabled: true
   VersionAdded: '0.1'
 
+Sage/Capybara/NoWaitZero:
+  Description: 'Avoid `wait: 0` in Capybara finders as it disables waiting and causes flaky tests.'
+  Enabled: true
+  VersionAdded: '0.1'
+
+Sage/Capybara/MatchStyle:
+  Description: 'Prefer `first()` or `match: :first` over `all().first`, and verify count before using `all().last`.'
+  Enabled: true
+  VersionAdded: '0.1'
+
 Sage/RSpec/NoEnvAssignment:
   Description: 'Use ClimateControl to modify ENV in tests instead of direct assignment.'
+  Enabled: true
+  VersionAdded: '0.1'
+
+Sage/RSpec/NoConditionals:
+  Description: 'Avoid conditional statements in test examples for deterministic tests.'
+  Enabled: true
+  VersionAdded: '0.1'
+
+Sage/RSpec/NoRescue:
+  Description: 'Avoid rescue blocks in test examples. Tests should fail loudly.'
   Enabled: true
   VersionAdded: '0.1'
