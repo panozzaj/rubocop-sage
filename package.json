@@ -1,0 +1,21 @@
+{
+  "name": "rubocop-sage",
+  "version": "1.0.0",
+  "description": "Custom RuboCop cops for opinionated best practices in Ruby projects. Designed with clear, concise output suitable for LLM agents.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "scripts": {
+    "format:md": "prettier --write '**/*.md'",
+    "format:md:check": "prettier --check '**/*.md'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [  "rubocop",  "linter"  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
+}
