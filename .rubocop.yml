@@ -4,6 +4,63 @@ require:
 AllCops:
   NewCops: enable
   TargetRubyVersion: 2.7
+  SuggestExtensions: false
+
+Layout/LineLength:
+  Max: 200
+
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 300
+
+Metrics/ModuleLength:
+  Max: 300
+
+Style/SymbolArray:
+  EnforcedStyle: percent
+  MinSize: 0
+
+Style/WordArray:
+  EnforcedStyle: percent
+  MinSize: 0
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/ArrayAlignment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/IdenticalConditionalBranches:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Naming/FileName:
+  Enabled: false
+
+Gemspec/RequireMFA:
+  Enabled: false
+
+Gemspec/DevelopmentDependencies:
+  Enabled: false
 
 Sage/Capybara/PreferNoMethods:
   Enabled: true
