@@ -61,9 +61,9 @@ run `bundle exec rspec` to run the tests.
 
 This gem is designed with LLM agents in mind. All cop messages are:
 
-- **Concise**:    Get straight to the point
-- **Clear**:   Explain what and why without jargon
-- **Actionable**:  Provide the correct alternative
+- **Concise**: Get straight to the point
+- **Clear**: Explain what and why without jargon
+- **Actionable**: Provide the correct alternative
 
 ### Namespace Organization
 
@@ -98,7 +98,7 @@ require:
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at the repository location. This is an extremely long line that goes on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and should definitely be wrapped by Prettier when the PostToolUse hook executes after this Edit tool completes successfully.
+Bug reports and pull requests are welcome on GitHub at the repository location.
 
 ## License
 
