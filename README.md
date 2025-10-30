@@ -49,6 +49,8 @@ require:
   conditional statements in test examples
 - [`Sage/RSpec/NoRescue`](docs/cops/rspec/no_rescue.md) - Avoid rescue blocks in
   test examples
+- [`Sage/RSpec/RedundantTypeAndEmpty`](docs/cops/rspec/redundant_type_and_empty.md) -
+  Use `eq([])` or `eq({})` instead of separate type and emptiness checks
 
 ## Development
 
