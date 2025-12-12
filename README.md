@@ -88,6 +88,10 @@ instead.
   asserting on `current_path` directly) and other useful Capybara cops
 - [`rubocop-rspec`](https://github.com/rubocop/rubocop-rspec) - Comprehensive
   RSpec style checking
+- [`rubocop-rspec_rails`](https://github.com/rubocop/rubocop-rspec_rails) -
+  RSpec Rails-specific cops, including `RSpecRails/InferredSpecType` which
+  removes redundant `type:` metadata when `infer_spec_type_from_file_location!`
+  is enabled (e.g., `type: :request` in `spec/requests/`)
 
 Example `.rubocop.yml` with recommended setup:
 
@@ -96,6 +100,10 @@ require:
   - rubocop-sage
   - rubocop-capybara
   - rubocop-rspec
+  - rubocop-rspec_rails
+
+RSpecRails/InferredSpecType:
+  Enabled: true
 ```
 
 ## Contributing
