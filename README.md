@@ -45,6 +45,8 @@ require:
 
 - [`Sage/RSpec/NoEnvAssignment`](docs/cops/rspec/no_env_assignment.md) - Use
   ClimateControl instead of direct ENV assignment
+- [`Sage/RSpec/NoEnvStubbing`](docs/cops/rspec/no_env_stubbing.md) - Use
+  ClimateControl instead of stubbing ENV with `allow`/`receive`
 - [`Sage/RSpec/NoConditionals`](docs/cops/rspec/no_conditionals.md) - Avoid
   conditional statements in test examples
 - [`Sage/RSpec/NoRescue`](docs/cops/rspec/no_rescue.md) - Avoid rescue blocks in

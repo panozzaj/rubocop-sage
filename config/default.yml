@@ -24,6 +24,11 @@ Sage/RSpec/NoEnvAssignment:
   Enabled: true
   VersionAdded: '0.1'
 
+Sage/RSpec/NoEnvStubbing:
+  Description: 'Use ClimateControl instead of stubbing ENV in tests.'
+  Enabled: true
+  VersionAdded: '0.1'
+
 Sage/RSpec/NoConditionals:
   Description: 'Avoid conditional statements in test examples for deterministic tests.'
   Enabled: true
