@@ -41,6 +41,11 @@ require:
 - [`Sage/Capybara/MatchStyle`](docs/cops/capybara/match_style.md) - Prefer
   `first()` over `all().first` for better reliability
 
+### Rails
+
+- [`Sage/Rails/AllWithBlock`](docs/cops/rails/all_with_block.md) - `.all`
+  ignores blocks; use `.find_each` or `.all.each` instead
+
 ### RSpec
 
 - [`Sage/RSpec/NoEnvAssignment`](docs/cops/rspec/no_env_assignment.md) - Use

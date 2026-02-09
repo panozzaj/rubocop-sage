@@ -19,6 +19,11 @@ Sage/Capybara/MatchStyle:
   Enabled: true
   VersionAdded: '0.1'
 
+Sage/Rails/AllWithBlock:
+  Description: '`.all` ignores blocks. Use `.find_each` or `.all.each` instead.'
+  Enabled: true
+  VersionAdded: '0.1'
+
 Sage/RSpec/NoEnvAssignment:
   Description: 'Use ClimateControl to modify ENV in tests instead of direct assignment.'
   Enabled: true
