@@ -47,6 +47,8 @@ require:
   ClimateControl instead of direct ENV assignment
 - [`Sage/RSpec/NoEnvStubbing`](docs/cops/rspec/no_env_stubbing.md) - Use
   ClimateControl instead of stubbing ENV with `allow`/`receive`
+- [`Sage/RSpec/NoRailsEnvStubbing`](docs/cops/rspec/no_rails_env_stubbing.md) -
+  Don't stub `Rails.env`; use configuration instead
 - [`Sage/RSpec/NoConditionals`](docs/cops/rspec/no_conditionals.md) - Avoid
   conditional statements in test examples
 - [`Sage/RSpec/NoRescue`](docs/cops/rspec/no_rescue.md) - Avoid rescue blocks in

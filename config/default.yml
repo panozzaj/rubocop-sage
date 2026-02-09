@@ -29,6 +29,11 @@ Sage/RSpec/NoEnvStubbing:
   Enabled: true
   VersionAdded: '0.1'
 
+Sage/RSpec/NoRailsEnvStubbing:
+  Description: 'Don''t stub Rails.env in tests. Extract environment-dependent behavior behind configuration instead.'
+  Enabled: true
+  VersionAdded: '0.1'
+
 Sage/RSpec/NoConditionals:
   Description: 'Avoid conditional statements in test examples for deterministic tests.'
   Enabled: true
