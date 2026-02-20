@@ -42,6 +42,7 @@ module RuboCop
         #   end
         #
         class NoConditionals < Base
+          requires_gem 'rspec-core'
           MSG = 'Avoid conditionals in tests. Use context blocks to separate test cases for clarity and determinism.'
 
           # Find all conditionals within example blocks

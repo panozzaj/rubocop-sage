@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Sage::RSpec::RedundantTypeAndEmpty, :config do
-  let(:config) { RuboCop::Config.new }
+  let(:gem_versions) { { 'rspec-core' => '3.0' } }
 
   context 'with Array type checks' do
     it 'registers an offense for be_an(Array) followed by be_empty' do
       expect_offense(<<~RUBY)
         it 'checks items' do
           expect(json["items"]).to be_an(Array)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/RedundantTypeAndEmpty: Use eq([]) instead of separate type and emptiness checks.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use eq([]) instead of separate type and emptiness checks.
           expect(json["items"]).to be_empty
         end
       RUBY
@@ -24,7 +24,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::RedundantTypeAndEmpty, :config do
       expect_offense(<<~RUBY)
         it 'checks items' do
           expect(json["items"]).to be_a(Array)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/RedundantTypeAndEmpty: Use eq([]) instead of separate type and emptiness checks.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use eq([]) instead of separate type and emptiness checks.
           expect(json["items"]).to be_empty
         end
       RUBY
@@ -40,7 +40,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::RedundantTypeAndEmpty, :config do
       expect_offense(<<~RUBY)
         it 'checks items' do
           expect(json["items"]).to be_kind_of(Array)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/RedundantTypeAndEmpty: Use eq([]) instead of separate type and emptiness checks.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use eq([]) instead of separate type and emptiness checks.
           expect(json["items"]).to be_empty
         end
       RUBY
@@ -56,7 +56,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::RedundantTypeAndEmpty, :config do
       expect_offense(<<~RUBY)
         it 'checks items' do
           expect(json["items"]).to be_instance_of(Array)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/RedundantTypeAndEmpty: Use eq([]) instead of separate type and emptiness checks.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use eq([]) instead of separate type and emptiness checks.
           expect(json["items"]).to be_empty
         end
       RUBY
@@ -72,7 +72,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::RedundantTypeAndEmpty, :config do
       expect_offense(<<~RUBY)
         it 'checks items' do
           expect(json["items"]).to be_empty
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/RedundantTypeAndEmpty: Use eq([]) instead of separate type and emptiness checks.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use eq([]) instead of separate type and emptiness checks.
           expect(json["items"]).to be_an(Array)
         end
       RUBY
@@ -88,7 +88,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::RedundantTypeAndEmpty, :config do
       expect_offense(<<~RUBY)
         it 'checks items' do
           expect(response.body["data"]["items"]).to be_an(Array)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/RedundantTypeAndEmpty: Use eq([]) instead of separate type and emptiness checks.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use eq([]) instead of separate type and emptiness checks.
           expect(response.body["data"]["items"]).to be_empty
         end
       RUBY
@@ -106,7 +106,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::RedundantTypeAndEmpty, :config do
       expect_offense(<<~RUBY)
         it 'checks data' do
           expect(json["data"]).to be_a(Hash)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/RedundantTypeAndEmpty: Use eq({}) instead of separate type and emptiness checks.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use eq({}) instead of separate type and emptiness checks.
           expect(json["data"]).to be_empty
         end
       RUBY
@@ -122,7 +122,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::RedundantTypeAndEmpty, :config do
       expect_offense(<<~RUBY)
         it 'checks data' do
           expect(json["data"]).to be_an(Hash)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/RedundantTypeAndEmpty: Use eq({}) instead of separate type and emptiness checks.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use eq({}) instead of separate type and emptiness checks.
           expect(json["data"]).to be_empty
         end
       RUBY
@@ -138,7 +138,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::RedundantTypeAndEmpty, :config do
       expect_offense(<<~RUBY)
         it 'checks data' do
           expect(json["data"]).to be_empty
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/RedundantTypeAndEmpty: Use eq({}) instead of separate type and emptiness checks.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use eq({}) instead of separate type and emptiness checks.
           expect(json["data"]).to be_a(Hash)
         end
       RUBY
@@ -211,7 +211,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::RedundantTypeAndEmpty, :config do
       expect_offense(<<~RUBY)
         it 'checks items' do
           expect(json["items"]).to be_an(Array)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/RedundantTypeAndEmpty: Use eq([]) instead of separate type and emptiness checks.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use eq([]) instead of separate type and emptiness checks.
 
           expect(json["items"]).to be_empty
         end
@@ -228,7 +228,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::RedundantTypeAndEmpty, :config do
       expect_offense(<<~RUBY)
         it 'checks items' do
           expect(json["items"]).to be_an(Array)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/RedundantTypeAndEmpty: Use eq([]) instead of separate type and emptiness checks.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use eq([]) instead of separate type and emptiness checks.
           # Check that it's empty
           expect(json["items"]).to be_empty
         end

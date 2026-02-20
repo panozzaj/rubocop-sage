@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Sage::Rails::AllWithBlock, :config do
-  let(:config) { RuboCop::Config.new }
+  let(:gem_versions) { { 'activerecord' => '7.0' } }
 
   it 'registers an offense for Model.all with a do block' do
     expect_offense(<<~RUBY)
       User.all do |user|
-      ^^^^^^^^ Sage/Rails/AllWithBlock: `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
+      ^^^^^^^^ `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
         user.do_something
       end
     RUBY
@@ -15,14 +15,14 @@ RSpec.describe RuboCop::Cop::Sage::Rails::AllWithBlock, :config do
   it 'registers an offense for Model.all with a brace block' do
     expect_offense(<<~RUBY)
       User.all { |user| user.do_something }
-      ^^^^^^^^ Sage/Rails/AllWithBlock: `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
+      ^^^^^^^^ `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
     RUBY
   end
 
   it 'registers an offense for chained scope.all with a block' do
     expect_offense(<<~RUBY)
       User.active.all do |user|
-      ^^^^^^^^^^^^^^^ Sage/Rails/AllWithBlock: `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
+      ^^^^^^^^^^^^^^^ `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
         user.notify
       end
     RUBY
@@ -31,7 +31,7 @@ RSpec.describe RuboCop::Cop::Sage::Rails::AllWithBlock, :config do
   it 'registers an offense for variable.all with a block' do
     expect_offense(<<~RUBY)
       scope.all do |record|
-      ^^^^^^^^^ Sage/Rails/AllWithBlock: `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
+      ^^^^^^^^^ `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
         record.process
       end
     RUBY

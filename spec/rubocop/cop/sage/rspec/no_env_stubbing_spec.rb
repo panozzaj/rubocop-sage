@@ -1,40 +1,40 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Sage::RSpec::NoEnvStubbing, :config do
-  let(:config) { RuboCop::Config.new }
+  let(:gem_versions) { { 'rspec-core' => '3.0' } }
 
   it 'registers an offense for allow(ENV).to receive(:fetch) with args' do
     expect_offense(<<~RUBY)
       allow(ENV).to receive(:fetch).with("APP_NAME").and_return("my_app")
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoEnvStubbing: Use ClimateControl.modify instead of stubbing ENV in tests.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use ClimateControl.modify instead of stubbing ENV in tests.
     RUBY
   end
 
   it 'registers an offense for allow(ENV).to receive(:fetch).and_call_original' do
     expect_offense(<<~RUBY)
       allow(ENV).to receive(:fetch).and_call_original
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoEnvStubbing: Use ClimateControl.modify instead of stubbing ENV in tests.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use ClimateControl.modify instead of stubbing ENV in tests.
     RUBY
   end
 
   it 'registers an offense for allow(ENV).to receive(:[])' do
     expect_offense(<<~RUBY)
       allow(ENV).to receive(:[]).with("APP_NAME").and_return("my_app")
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoEnvStubbing: Use ClimateControl.modify instead of stubbing ENV in tests.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use ClimateControl.modify instead of stubbing ENV in tests.
     RUBY
   end
 
   it 'registers an offense for allow(ENV).to receive(:fetch) with multiple args' do
     expect_offense(<<~RUBY)
       allow(ENV).to receive(:fetch).with("FEATURE_FLAG", anything).and_return(false)
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoEnvStubbing: Use ClimateControl.modify instead of stubbing ENV in tests.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use ClimateControl.modify instead of stubbing ENV in tests.
     RUBY
   end
 
   it 'registers an offense for bare allow(ENV).to receive(:fetch)' do
     expect_offense(<<~RUBY)
       allow(ENV).to receive(:fetch)
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoEnvStubbing: Use ClimateControl.modify instead of stubbing ENV in tests.
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use ClimateControl.modify instead of stubbing ENV in tests.
     RUBY
   end
 

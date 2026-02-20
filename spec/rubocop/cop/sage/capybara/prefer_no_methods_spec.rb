@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Sage::Capybara::PreferNoMethods, :config do
-  let(:config) { RuboCop::Config.new }
+  let(:gem_versions) { { 'capybara' => '3.0' } }
 
   it 'registers an offense for negated has_xpath?' do
     expect_offense(<<~RUBY, code: "!page.has_xpath?('a')")
       %{code}
-      ^{code} Sage/Capybara/PreferNoMethods: Use `has_no_xpath?` instead of `!has_xpath?` [...]
+      ^{code} Use `has_no_xpath?` instead of `!has_xpath?` [...]
     RUBY
 
     expect_correction(<<~RUBY)
@@ -17,7 +17,7 @@ RSpec.describe RuboCop::Cop::Sage::Capybara::PreferNoMethods, :config do
   it 'registers an offense for negated has_css?' do
     expect_offense(<<~RUBY, code: "!page.has_css?('.flash')")
       %{code}
-      ^{code} Sage/Capybara/PreferNoMethods: Use `has_no_css?` instead of `!has_css?` [...]
+      ^{code} Use `has_no_css?` instead of `!has_css?` [...]
     RUBY
 
     expect_correction(<<~RUBY)
@@ -28,7 +28,7 @@ RSpec.describe RuboCop::Cop::Sage::Capybara::PreferNoMethods, :config do
   it 'registers an offense for negated has_selector?' do
     expect_offense(<<~RUBY, code: "!page.has_selector?('.modal')")
       %{code}
-      ^{code} Sage/Capybara/PreferNoMethods: Use `has_no_selector?` instead of `!has_selector?` [...]
+      ^{code} Use `has_no_selector?` instead of `!has_selector?` [...]
     RUBY
 
     expect_correction(<<~RUBY)
@@ -39,7 +39,7 @@ RSpec.describe RuboCop::Cop::Sage::Capybara::PreferNoMethods, :config do
   it 'registers an offense for negated has_content?' do
     expect_offense(<<~RUBY, code: "!page.has_content?('Error')")
       %{code}
-      ^{code} Sage/Capybara/PreferNoMethods: Use `has_no_content?` instead of `!has_content?` [...]
+      ^{code} Use `has_no_content?` instead of `!has_content?` [...]
     RUBY
 
     expect_correction(<<~RUBY)
@@ -50,7 +50,7 @@ RSpec.describe RuboCop::Cop::Sage::Capybara::PreferNoMethods, :config do
   it 'registers an offense for negated has_link?' do
     expect_offense(<<~RUBY, code: "!page.has_link?('Click me')")
       %{code}
-      ^{code} Sage/Capybara/PreferNoMethods: Use `has_no_link?` instead of `!has_link?` [...]
+      ^{code} Use `has_no_link?` instead of `!has_link?` [...]
     RUBY
 
     expect_correction(<<~RUBY)
@@ -61,7 +61,7 @@ RSpec.describe RuboCop::Cop::Sage::Capybara::PreferNoMethods, :config do
   it 'registers an offense for negated has_button?' do
     expect_offense(<<~RUBY, code: "!page.has_button?('Submit')")
       %{code}
-      ^{code} Sage/Capybara/PreferNoMethods: Use `has_no_button?` instead of `!has_button?` [...]
+      ^{code} Use `has_no_button?` instead of `!has_button?` [...]
     RUBY
 
     expect_correction(<<~RUBY)
@@ -72,7 +72,7 @@ RSpec.describe RuboCop::Cop::Sage::Capybara::PreferNoMethods, :config do
   it 'registers an offense for negated has_field?' do
     expect_offense(<<~RUBY, code: "!page.has_field?('Name')")
       %{code}
-      ^{code} Sage/Capybara/PreferNoMethods: Use `has_no_field?` instead of `!has_field?` [...]
+      ^{code} Use `has_no_field?` instead of `!has_field?` [...]
     RUBY
 
     expect_correction(<<~RUBY)
@@ -83,7 +83,7 @@ RSpec.describe RuboCop::Cop::Sage::Capybara::PreferNoMethods, :config do
   it 'registers an offense for negated has_xpath? with multiple arguments' do
     expect_offense(<<~RUBY, code: "!page.has_xpath?('//div', text: 'Hello')")
       %{code}
-      ^{code} Sage/Capybara/PreferNoMethods: Use `has_no_xpath?` instead of `!has_xpath?` [...]
+      ^{code} Use `has_no_xpath?` instead of `!has_xpath?` [...]
     RUBY
 
     expect_correction(<<~RUBY)

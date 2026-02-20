@@ -22,6 +22,7 @@ module RuboCop
         #   page.all('.items', minimum: 1).last
         #
         class MatchStyle < Base
+          requires_gem 'capybara'
           MSG_FIRST = 'Use `page.first(...)` or `match: :first` instead of `page.all(...).first` for more reliable waiting.'
           MSG_LAST = 'Verify element count before using `.last` on `.all()` to avoid flaky tests. Use `count:` or `minimum:` option.'
 

@@ -31,6 +31,7 @@ module RuboCop
         #   end
         #
         class NoEnvAssignment < Base
+          requires_gem 'rspec-core'
           MSG = 'Use ClimateControl.modify to change ENV in tests instead of direct assignment.'
 
           # @!method env_assignment?(node)

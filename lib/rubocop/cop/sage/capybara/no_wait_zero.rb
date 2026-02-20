@@ -26,6 +26,7 @@ module RuboCop
         #
         class NoWaitZero < Base
           extend AutoCorrector
+          requires_gem 'capybara'
 
           MSG = 'Avoid `wait: 0` as it disables waiting and causes flaky tests. Remove the option to use default waiting.'
 

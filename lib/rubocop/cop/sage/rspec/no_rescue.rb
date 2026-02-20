@@ -39,6 +39,7 @@ module RuboCop
         #   end
         #
         class NoRescue < Base
+          requires_gem 'rspec-core'
           MSG = 'Avoid rescue in tests. Tests should fail loudly. Use `expect { }.to raise_error(...)` to test error handling.'
 
           # RSpec example blocks (it/specify/example) don't use numbered block params

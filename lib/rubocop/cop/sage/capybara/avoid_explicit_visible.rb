@@ -30,6 +30,7 @@ module RuboCop
         #
         class AvoidExplicitVisible < Base
           extend AutoCorrector
+          requires_gem 'capybara'
 
           MSG = 'Avoid explicit `visible: true` as it is the default behavior.'
 

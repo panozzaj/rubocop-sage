@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
-  let(:config) { RuboCop::Config.new }
+  let(:gem_versions) { { 'rspec-core' => '3.0' } }
 
   it 'registers an offense for begin/rescue in it block' do
     expect_offense(<<~RUBY)
@@ -9,7 +9,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
         begin
           process_data(input)
         rescue StandardError
-        ^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoRescue: Avoid rescue [...]
+        ^^^^^^^^^^^^^^^^^^^^ Avoid rescue [...]
           # handle error
         end
       end
@@ -20,7 +20,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
     expect_offense(<<~RUBY)
       it 'saves record' do
         record.save rescue nil
-                    ^^^^^^^^^^ Sage/RSpec/NoRescue: Avoid rescue [...]
+                    ^^^^^^^^^^ Avoid rescue [...]
       end
     RUBY
   end
@@ -31,7 +31,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
         begin
           dangerous_operation
         rescue ArgumentError => e
-        ^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoRescue: Avoid rescue [...]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid rescue [...]
           logger.error(e)
         end
       end
@@ -44,7 +44,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
         begin
           operation
         rescue ArgumentError, TypeError
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoRescue: Avoid rescue [...]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid rescue [...]
           # handle
         end
       end
@@ -57,7 +57,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
         begin
           operation
         rescue StandardError
-        ^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoRescue: Avoid rescue [...]
+        ^^^^^^^^^^^^^^^^^^^^ Avoid rescue [...]
           # handle
         ensure
           cleanup
@@ -110,7 +110,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
     expect_offense(<<~RUBY)
       specify do
         operation rescue nil
-                  ^^^^^^^^^^ Sage/RSpec/NoRescue: Avoid rescue [...]
+                  ^^^^^^^^^^ Avoid rescue [...]
       end
     RUBY
   end
@@ -121,7 +121,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
         begin
           operation
         rescue
-        ^^^^^^ Sage/RSpec/NoRescue: Avoid rescue [...]
+        ^^^^^^ Avoid rescue [...]
           nil
         end
       end
@@ -132,7 +132,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
     expect_offense(<<~RUBY)
       scenario 'user logs in' do
         login rescue redirect_to_home
-              ^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoRescue: Avoid rescue [...]
+              ^^^^^^^^^^^^^^^^^^^^^^^ Avoid rescue [...]
       end
     RUBY
   end

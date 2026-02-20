@@ -24,6 +24,7 @@ module RuboCop
         #   allow(MyApp.config).to receive(:use_real_service?).and_return(true)
         #
         class NoRailsEnvStubbing < Base
+          requires_gem 'rspec-core'
           MSG = 'Don\'t stub Rails.env in tests. Extract environment-dependent behavior behind configuration instead.'
 
           # Matches: allow(Rails.env).to receive(...)

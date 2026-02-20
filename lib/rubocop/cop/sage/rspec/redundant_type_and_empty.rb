@@ -32,6 +32,7 @@ module RuboCop
         class RedundantTypeAndEmpty < Base
           include RangeHelp
           extend AutoCorrector
+          requires_gem 'rspec-core'
 
           MSG = 'Use eq(%<literal>s) instead of separate type and emptiness checks.'
 

@@ -23,6 +23,7 @@ module RuboCop
         #   end
         #
         class NoEnvStubbing < Base
+          requires_gem 'rspec-core'
           MSG = 'Use ClimateControl.modify instead of stubbing ENV in tests.'
 
           # @!method allow_env_to?(node)

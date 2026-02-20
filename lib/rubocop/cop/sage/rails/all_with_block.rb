@@ -30,6 +30,7 @@ module RuboCop
         #   end
         #
         class AllWithBlock < Base
+          requires_gem 'activerecord'
           MSG = '`.all` ignores blocks. Use `.find_each` or `.all.each` instead.'
 
           # @!method all_with_block?(node)

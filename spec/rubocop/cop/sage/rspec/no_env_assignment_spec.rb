@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Sage::RSpec::NoEnvAssignment, :config do
-  let(:config) { RuboCop::Config.new }
+  let(:gem_versions) { { 'rspec-core' => '3.0' } }
 
   it 'registers an offense for ENV assignment with string key' do
     expect_offense(<<~RUBY, code: "ENV['API_KEY'] = 'test_key'")
       %{code}
-      ^{code} Sage/RSpec/NoEnvAssignment: Use ClimateControl.modify [...]
+      ^{code} Use ClimateControl.modify [...]
     RUBY
   end
 
   it 'registers an offense for ENV assignment with double-quoted string' do
     expect_offense(<<~RUBY, code: 'ENV["RAILS_ENV"] = "test"')
       %{code}
-      ^{code} Sage/RSpec/NoEnvAssignment: Use ClimateControl.modify [...]
+      ^{code} Use ClimateControl.modify [...]
     RUBY
   end
 
@@ -21,7 +21,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoEnvAssignment, :config do
     expect_offense(<<~RUBY, assignment: "ENV['API_KEY'] = api_key")
       api_key = 'my_key'
       %{assignment}
-      ^{assignment} Sage/RSpec/NoEnvAssignment: Use ClimateControl.modify [...]
+      ^{assignment} Use ClimateControl.modify [...]
     RUBY
   end
 
@@ -29,7 +29,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoEnvAssignment, :config do
     expect_offense(<<~RUBY, assignment: "ENV['DATABASE_URL'] = 'postgres://localhost'")
       def setup_env
         %{assignment}
-        ^{assignment} Sage/RSpec/NoEnvAssignment: Use ClimateControl.modify [...]
+        ^{assignment} Use ClimateControl.modify [...]
       end
     RUBY
   end
@@ -38,7 +38,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoEnvAssignment, :config do
     expect_offense(<<~RUBY, assignment: "ENV['FOO'] = 'bar'")
       before do
         %{assignment}
-        ^{assignment} Sage/RSpec/NoEnvAssignment: Use ClimateControl.modify [...]
+        ^{assignment} Use ClimateControl.modify [...]
       end
     RUBY
   end
@@ -82,9 +82,9 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoEnvAssignment, :config do
   it 'registers an offense for multiple ENV assignments' do
     expect_offense(<<~RUBY, foo: "ENV['FOO'] = 'foo'", bar: "ENV['BAR'] = 'bar'")
       %{foo}
-      ^{foo} Sage/RSpec/NoEnvAssignment: Use ClimateControl.modify [...]
+      ^{foo} Use ClimateControl.modify [...]
       %{bar}
-      ^{bar} Sage/RSpec/NoEnvAssignment: Use ClimateControl.modify [...]
+      ^{bar} Use ClimateControl.modify [...]
     RUBY
   end
 end

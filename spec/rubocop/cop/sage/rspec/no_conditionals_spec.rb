@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
-  let(:config) { RuboCop::Config.new }
+  let(:gem_versions) { { 'rspec-core' => '3.0' } }
 
   it 'registers an offense for if statement in it block' do
     expect_offense(<<~RUBY)
       it 'processes the order' do
         if user.premium?
-        ^^^^^^^^^^^^^^^^ Sage/RSpec/NoConditionals: Avoid conditionals [...]
+        ^^^^^^^^^^^^^^^^ Avoid conditionals [...]
           expect(order.discount).to eq(20)
         else
           expect(order.discount).to eq(0)
@@ -20,7 +20,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
     expect_offense(<<~RUBY)
       it 'processes the order' do
         unless user.premium?
-        ^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoConditionals: Avoid conditionals [...]
+        ^^^^^^^^^^^^^^^^^^^^ Avoid conditionals [...]
           expect(order.discount).to eq(0)
         end
       end
@@ -31,7 +31,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
     expect_offense(<<~RUBY)
       it 'clicks button' do
         button.click if page.has_css?('.submit')
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoConditionals: Avoid conditionals [...]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid conditionals [...]
       end
     RUBY
   end
@@ -40,7 +40,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
     expect_offense(<<~RUBY)
       it 'processes data' do
         process_data unless data.empty?
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoConditionals: Avoid conditionals [...]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid conditionals [...]
       end
     RUBY
   end
@@ -49,7 +49,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
     expect_offense(<<~RUBY)
       it 'handles different types' do
         case user.type
-        ^^^^^^^^^^^^^^ Sage/RSpec/NoConditionals: Avoid conditionals [...]
+        ^^^^^^^^^^^^^^ Avoid conditionals [...]
         when 'admin'
           expect(user.permissions).to include(:delete)
         when 'user'
@@ -63,7 +63,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
     expect_offense(<<~RUBY)
       it 'calculates discount' do
         discount = user.premium? ? 20 : 0
-                   ^^^^^^^^^^^^^^^^^^^^^^ Sage/RSpec/NoConditionals: Avoid conditionals [...]
+                   ^^^^^^^^^^^^^^^^^^^^^^ Avoid conditionals [...]
         expect(discount).to be_positive
       end
     RUBY
@@ -121,7 +121,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
     expect_offense(<<~RUBY)
       specify do
         if condition
-        ^^^^^^^^^^^^ Sage/RSpec/NoConditionals: Avoid conditionals [...]
+        ^^^^^^^^^^^^ Avoid conditionals [...]
           expect(true).to be true
         end
       end
@@ -132,7 +132,7 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
     expect_offense(<<~RUBY)
       example do
         if condition
-        ^^^^^^^^^^^^ Sage/RSpec/NoConditionals: Avoid conditionals [...]
+        ^^^^^^^^^^^^ Avoid conditionals [...]
           expect(true).to be true
         end
       end

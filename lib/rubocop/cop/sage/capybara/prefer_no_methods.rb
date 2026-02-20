@@ -31,6 +31,7 @@ module RuboCop
         #
         class PreferNoMethods < Base
           extend AutoCorrector
+          requires_gem 'capybara'
 
           MSG = 'Use `%<preferred>s` instead of `!%<current>s` to handle async behavior correctly.'
 

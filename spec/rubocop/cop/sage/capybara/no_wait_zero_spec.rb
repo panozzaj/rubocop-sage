@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Sage::Capybara::NoWaitZero, :config do
-  let(:config) { RuboCop::Config.new }
+  let(:gem_versions) { { 'capybara' => '3.0' } }
 
   it 'registers an offense for first with wait: 0' do
     expect_offense(<<~RUBY)
       page.first('.navigation-menu', wait: 0).click
-                                     ^^^^^^^ Sage/Capybara/NoWaitZero: Avoid `wait: 0` [...]
+                                     ^^^^^^^ Avoid `wait: 0` [...]
     RUBY
 
     expect_correction(<<~RUBY)
@@ -17,7 +17,7 @@ RSpec.describe RuboCop::Cop::Sage::Capybara::NoWaitZero, :config do
   it 'registers an offense for all with wait: 0' do
     expect_offense(<<~RUBY)
       page.all('.items', wait: 0).count
-                         ^^^^^^^ Sage/Capybara/NoWaitZero: Avoid `wait: 0` [...]
+                         ^^^^^^^ Avoid `wait: 0` [...]
     RUBY
 
     expect_correction(<<~RUBY)
@@ -28,7 +28,7 @@ RSpec.describe RuboCop::Cop::Sage::Capybara::NoWaitZero, :config do
   it 'registers an offense for find with wait: 0' do
     expect_offense(<<~RUBY)
       page.find('.button', wait: 0)
-                           ^^^^^^^ Sage/Capybara/NoWaitZero: Avoid `wait: 0` [...]
+                           ^^^^^^^ Avoid `wait: 0` [...]
     RUBY
 
     expect_correction(<<~RUBY)
@@ -39,7 +39,7 @@ RSpec.describe RuboCop::Cop::Sage::Capybara::NoWaitZero, :config do
   it 'registers an offense for wait: 0 with other options' do
     expect_offense(<<~RUBY)
       page.first('.menu', visible: true, wait: 0)
-                                         ^^^^^^^ Sage/Capybara/NoWaitZero: Avoid `wait: 0` [...]
+                                         ^^^^^^^ Avoid `wait: 0` [...]
     RUBY
 
     expect_correction(<<~RUBY)
@@ -50,7 +50,7 @@ RSpec.describe RuboCop::Cop::Sage::Capybara::NoWaitZero, :config do
   it 'registers an offense for wait: 0 as first option' do
     expect_offense(<<~RUBY)
       page.all('.items', wait: 0, minimum: 1)
-                         ^^^^^^^ Sage/Capybara/NoWaitZero: Avoid `wait: 0` [...]
+                         ^^^^^^^ Avoid `wait: 0` [...]
     RUBY
 
     expect_correction(<<~RUBY)
