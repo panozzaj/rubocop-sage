@@ -47,7 +47,8 @@ module RuboCop
               ...)
           PATTERN
 
-          def on_send(node)
+          # allow(...).to is always a regular send, never safe navigation
+          def on_send(node) # rubocop:disable InternalAffairs/OnSendWithoutOnCSend
             return unless allow_rails_env_to?(node) || allow_rails_to_receive_env?(node)
 
             add_offense(node)

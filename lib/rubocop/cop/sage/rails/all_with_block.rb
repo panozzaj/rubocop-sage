@@ -42,6 +42,7 @@ module RuboCop
 
             add_offense(node.send_node)
           end
+          alias_method :on_numblock, :on_block
         end
       end
     end

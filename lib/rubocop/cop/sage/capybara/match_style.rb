@@ -51,6 +51,7 @@ module RuboCop
             message = method_name == :first ? MSG_FIRST : MSG_LAST
             add_offense(node, message: message)
           end
+          alias_method :on_csend, :on_send
         end
       end
     end

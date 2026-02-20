@@ -45,7 +45,8 @@ module RuboCop
           MSG = 'Avoid conditionals in tests. Use context blocks to separate test cases for clarity and determinism.'
 
           # Find all conditionals within example blocks
-          def on_block(node)
+          # RSpec example blocks (it/specify/example) don't use numbered block params
+          def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
             return unless example_block?(node)
 
             find_conditionals(node).each do |conditional|
@@ -76,7 +77,7 @@ module RuboCop
           end
 
           def inside_method_definition?(conditional_node, example_node)
-            conditional_node.each_ancestor(:def, :defs) do |ancestor|
+            conditional_node.each_ancestor(:any_def) do |ancestor|
               # If we find a method definition between the conditional and the example block,
               # the conditional is inside a helper method
               return true if ancestor != example_node

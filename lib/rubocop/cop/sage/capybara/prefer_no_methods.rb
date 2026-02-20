@@ -60,7 +60,8 @@ module RuboCop
               :!)
           PATTERN
 
-          def on_send(node)
+          # Matches :! (negation operator), not a regular method — on_csend not applicable
+          def on_send(node) # rubocop:disable InternalAffairs/OnSendWithoutOnCSend
             negated_capybara_matcher?(node) do |receiver, method|
               preferred_method = method.to_s.sub('has_', 'has_no_')
               message = format(MSG, preferred: preferred_method, current: method)

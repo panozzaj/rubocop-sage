@@ -54,7 +54,8 @@ module RuboCop
               (send nil? :be_empty))
           PATTERN
 
-          def on_send(node)
+          # expect(...).to is always a regular send, never safe navigation
+          def on_send(node) # rubocop:disable InternalAffairs/OnSendWithoutOnCSend
             # Only look at expect(...).to/not_to calls
             return unless node.method?(:to) || node.method?(:to_not) || node.method?(:not_to)
 

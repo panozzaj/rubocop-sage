@@ -38,7 +38,8 @@ module RuboCop
             (send (const nil? :ENV) :[]= ...)
           PATTERN
 
-          def on_send(node)
+          # ENV[]= is always a regular send, never safe navigation
+          def on_send(node) # rubocop:disable InternalAffairs/OnSendWithoutOnCSend
             return unless env_assignment?(node)
 
             add_offense(node)

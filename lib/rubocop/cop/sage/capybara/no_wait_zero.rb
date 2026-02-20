@@ -38,11 +38,12 @@ module RuboCop
 
           def on_send(node)
             wait_zero_option?(node) do |pair_node|
-              add_offense(pair_node, message: MSG) do |corrector|
+              add_offense(pair_node) do |corrector|
                 remove_wait_zero(corrector, node, pair_node)
               end
             end
           end
+          alias_method :on_csend, :on_send
 
           private
 
@@ -69,7 +70,7 @@ module RuboCop
               corrector.remove(range)
             else
               # Hash is the first/only argument
-              corrector.remove(hash_node.source_range)
+              corrector.remove(hash_node)
             end
           end
 

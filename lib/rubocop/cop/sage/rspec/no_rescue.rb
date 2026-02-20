@@ -41,7 +41,8 @@ module RuboCop
         class NoRescue < Base
           MSG = 'Avoid rescue in tests. Tests should fail loudly. Use `expect { }.to raise_error(...)` to test error handling.'
 
-          def on_block(node)
+          # RSpec example blocks (it/specify/example) don't use numbered block params
+          def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
             return unless example_block?(node)
 
             find_rescues(node).each do |rescue_node|
@@ -82,7 +83,7 @@ module RuboCop
           end
 
           def inside_method_definition?(rescue_node, example_node)
-            rescue_node.each_ancestor(:def, :defs) do |ancestor|
+            rescue_node.each_ancestor(:any_def) do |ancestor|
               return true if ancestor != example_node
             end
 
