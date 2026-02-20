@@ -4,12 +4,12 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
   let(:gem_versions) { { 'rspec-core' => '3.0' } }
 
   it 'registers an offense for begin/rescue in it block' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, code: 'rescue StandardError')
       it 'processes data' do
         begin
           process_data(input)
-        rescue StandardError
-        ^^^^^^^^^^^^^^^^^^^^ Avoid rescue [...]
+        %{code}
+        ^{code} Avoid rescue [...]
           # handle error
         end
       end
@@ -17,21 +17,21 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
   end
 
   it 'registers an offense for rescue modifier' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, rescue_clause: 'rescue nil')
       it 'saves record' do
-        record.save rescue nil
-                    ^^^^^^^^^^ Avoid rescue [...]
+        record.save %{rescue_clause}
+                    ^{rescue_clause} Avoid rescue [...]
       end
     RUBY
   end
 
   it 'registers an offense for rescue with specific error class' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, code: 'rescue ArgumentError => e')
       it 'handles errors' do
         begin
           dangerous_operation
-        rescue ArgumentError => e
-        ^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid rescue [...]
+        %{code}
+        ^{code} Avoid rescue [...]
           logger.error(e)
         end
       end
@@ -39,12 +39,12 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
   end
 
   it 'registers an offense for rescue with multiple error classes' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, code: 'rescue ArgumentError, TypeError')
       it 'handles errors' do
         begin
           operation
-        rescue ArgumentError, TypeError
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid rescue [...]
+        %{code}
+        ^{code} Avoid rescue [...]
           # handle
         end
       end
@@ -52,12 +52,12 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
   end
 
   it 'registers an offense for rescue with ensure' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, code: 'rescue StandardError')
       it 'cleans up' do
         begin
           operation
-        rescue StandardError
-        ^^^^^^^^^^^^^^^^^^^^ Avoid rescue [...]
+        %{code}
+        ^{code} Avoid rescue [...]
           # handle
         ensure
           cleanup
@@ -107,21 +107,21 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
   end
 
   it 'works with specify' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, rescue_clause: 'rescue nil')
       specify do
-        operation rescue nil
-                  ^^^^^^^^^^ Avoid rescue [...]
+        operation %{rescue_clause}
+                  ^{rescue_clause} Avoid rescue [...]
       end
     RUBY
   end
 
   it 'works with example' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, code: 'rescue')
       example do
         begin
           operation
-        rescue
-        ^^^^^^ Avoid rescue [...]
+        %{code}
+        ^{code} Avoid rescue [...]
           nil
         end
       end
@@ -129,10 +129,10 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRescue, :config do
   end
 
   it 'works with scenario' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, rescue_clause: 'rescue redirect_to_home')
       scenario 'user logs in' do
-        login rescue redirect_to_home
-              ^^^^^^^^^^^^^^^^^^^^^^^ Avoid rescue [...]
+        login %{rescue_clause}
+              ^{rescue_clause} Avoid rescue [...]
       end
     RUBY
   end

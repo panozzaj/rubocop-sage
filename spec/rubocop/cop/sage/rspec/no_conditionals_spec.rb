@@ -4,10 +4,10 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
   let(:gem_versions) { { 'rspec-core' => '3.0' } }
 
   it 'registers an offense for if statement in it block' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, code: 'if user.premium?')
       it 'processes the order' do
-        if user.premium?
-        ^^^^^^^^^^^^^^^^ Avoid conditionals [...]
+        %{code}
+        ^{code} Avoid conditionals [...]
           expect(order.discount).to eq(20)
         else
           expect(order.discount).to eq(0)
@@ -17,10 +17,10 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
   end
 
   it 'registers an offense for unless statement in it block' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, code: 'unless user.premium?')
       it 'processes the order' do
-        unless user.premium?
-        ^^^^^^^^^^^^^^^^^^^^ Avoid conditionals [...]
+        %{code}
+        ^{code} Avoid conditionals [...]
           expect(order.discount).to eq(0)
         end
       end
@@ -28,28 +28,28 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
   end
 
   it 'registers an offense for modifier if' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, code: "button.click if page.has_css?('.submit')")
       it 'clicks button' do
-        button.click if page.has_css?('.submit')
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid conditionals [...]
+        %{code}
+        ^{code} Avoid conditionals [...]
       end
     RUBY
   end
 
   it 'registers an offense for modifier unless' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, code: 'process_data unless data.empty?')
       it 'processes data' do
-        process_data unless data.empty?
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid conditionals [...]
+        %{code}
+        ^{code} Avoid conditionals [...]
       end
     RUBY
   end
 
   it 'registers an offense for case statement' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, code: 'case user.type')
       it 'handles different types' do
-        case user.type
-        ^^^^^^^^^^^^^^ Avoid conditionals [...]
+        %{code}
+        ^{code} Avoid conditionals [...]
         when 'admin'
           expect(user.permissions).to include(:delete)
         when 'user'
@@ -60,10 +60,10 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
   end
 
   it 'registers an offense for ternary operator' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, ternary: 'user.premium? ? 20 : 0')
       it 'calculates discount' do
-        discount = user.premium? ? 20 : 0
-                   ^^^^^^^^^^^^^^^^^^^^^^ Avoid conditionals [...]
+        discount = %{ternary}
+                   ^{ternary} Avoid conditionals [...]
         expect(discount).to be_positive
       end
     RUBY
@@ -118,10 +118,10 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
   end
 
   it 'works with specify' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, code: 'if condition')
       specify do
-        if condition
-        ^^^^^^^^^^^^ Avoid conditionals [...]
+        %{code}
+        ^{code} Avoid conditionals [...]
           expect(true).to be true
         end
       end
@@ -129,10 +129,10 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoConditionals, :config do
   end
 
   it 'works with example' do
-    expect_offense(<<~RUBY)
+    expect_offense(<<~RUBY, code: 'if condition')
       example do
-        if condition
-        ^^^^^^^^^^^^ Avoid conditionals [...]
+        %{code}
+        ^{code} Avoid conditionals [...]
           expect(true).to be true
         end
       end

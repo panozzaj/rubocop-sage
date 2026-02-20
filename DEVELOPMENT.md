@@ -4,43 +4,57 @@
 
 ### RuboCop Offense Markers
 
-When writing tests for cops using `expect_offense`, follow these conventions:
+When writing tests for cops using `expect_offense`, use RuboCop's variable
+interpolation to avoid manual caret counting:
 
-1. **Use full caret patterns**: Mark the full width of the offense location with
-   `^` characters
+1. **Use `%{var}` / `^{var}` interpolation**: This automatically generates the
+   correct number of carets matching the interpolated string width.
 
    ```ruby
-   expect_offense(<<~RUBY)
-     if user.premium?
-     ^^^^^^^^^^^^^^^^ Sage/RSpec/NoConditionals: Avoid conditionals [...]
+   # Full-line offense (offense spans entire line)
+   expect_offense(<<~RUBY, code: 'allow(ENV).to receive(:fetch)')
+     %{code}
+     ^{code} Use ClimateControl.modify [...]
+   RUBY
+
+   # Prefix offense (offense is a prefix of the line)
+   expect_offense(<<~RUBY, code: 'User.all')
+     %{code} do |user|
+     ^{code} `.all` ignores blocks. [...]
+   RUBY
+
+   # Mid-line offense (offense starts partway through a line)
+   expect_offense(<<~RUBY, rescue_clause: 'rescue nil')
+     it 'saves' do
+       record.save %{rescue_clause}
+                   ^{rescue_clause} Avoid rescue [...]
+     end
    RUBY
    ```
 
-2. **Abbreviate messages with `[...]`**: Use `[...]` to abbreviate the full
-   offense message in tests
-   - This makes tests more maintainable when message wording changes
-   - The `[...]` tells RuboCop to match any text after that point
-   - Example: `Avoid conditionals [...]` matches the full message "Avoid
-     conditionals in tests. Use context blocks to separate test cases for
-     clarity and determinism."
+2. **Manual carets for fixed-width sub-expressions**: When the offense is always
+   the same width (e.g., `visible: true`, `wait: 0`), manual carets are fine.
 
-3. **Count carets literally**: The number of `^` characters should match the
-   exact width of the offense location
-   - Don't use variables like `^{node}` - just count the literal characters
-   - This ensures tests accurately reflect where the offense is detected
+   ```ruby
+   expect_offense(<<~RUBY)
+     page.has_css?('.container', visible: true)
+                                 ^^^^^^^^^^^^^ Avoid explicit `visible: true` [...]
+   RUBY
+   ```
 
-### Example Test Pattern
+3. **Abbreviate messages with `[...]`**: Use `[...]` to abbreviate the full
+   offense message in tests. This makes tests more maintainable when message
+   wording changes.
+
+### Test Setup
+
+All specs use the `:config` shared context (from the `describe` metadata).
+Override `gem_versions` to match the cop's `requires_gem` declaration:
 
 ```ruby
-it 'registers an offense for if statement' do
-  expect_offense(<<~RUBY)
-    it 'processes data' do
-      if condition
-      ^^^^^^^^^^^^ Sage/RSpec/NoConditionals: Avoid conditionals [...]
-        process_data
-      end
-    end
-  RUBY
+RSpec.describe RuboCop::Cop::Sage::Capybara::SomeCop, :config do
+  let(:gem_versions) { { 'capybara' => '3.0' } }
+  # ...
 end
 ```
 

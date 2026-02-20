@@ -4,34 +4,34 @@ RSpec.describe RuboCop::Cop::Sage::Rails::AllWithBlock, :config do
   let(:gem_versions) { { 'activerecord' => '7.0' } }
 
   it 'registers an offense for Model.all with a do block' do
-    expect_offense(<<~RUBY)
-      User.all do |user|
-      ^^^^^^^^ `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
+    expect_offense(<<~RUBY, code: 'User.all')
+      %{code} do |user|
+      ^{code} `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
         user.do_something
       end
     RUBY
   end
 
   it 'registers an offense for Model.all with a brace block' do
-    expect_offense(<<~RUBY)
-      User.all { |user| user.do_something }
-      ^^^^^^^^ `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
+    expect_offense(<<~RUBY, code: 'User.all')
+      %{code} { |user| user.do_something }
+      ^{code} `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
     RUBY
   end
 
   it 'registers an offense for chained scope.all with a block' do
-    expect_offense(<<~RUBY)
-      User.active.all do |user|
-      ^^^^^^^^^^^^^^^ `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
+    expect_offense(<<~RUBY, code: 'User.active.all')
+      %{code} do |user|
+      ^{code} `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
         user.notify
       end
     RUBY
   end
 
   it 'registers an offense for variable.all with a block' do
-    expect_offense(<<~RUBY)
-      scope.all do |record|
-      ^^^^^^^^^ `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
+    expect_offense(<<~RUBY, code: 'scope.all')
+      %{code} do |record|
+      ^{code} `.all` ignores blocks. Use `.find_each` or `.all.each` instead.
         record.process
       end
     RUBY

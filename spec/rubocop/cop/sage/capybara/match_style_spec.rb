@@ -4,37 +4,37 @@ RSpec.describe RuboCop::Cop::Sage::Capybara::MatchStyle, :config do
   let(:gem_versions) { { 'capybara' => '3.0' } }
 
   it 'registers an offense for all().first' do
-    expect_offense(<<~RUBY)
-      page.all('.items').first
-      ^^^^^^^^^^^^^^^^^^^^^^^^ Use `page.first(...)` or `match: :first` [...]
+    expect_offense(<<~RUBY, code: "page.all('.items').first")
+      %{code}
+      ^{code} Use `page.first(...)` or `match: :first` [...]
     RUBY
   end
 
   it 'registers an offense for all().first.click' do
-    expect_offense(<<~RUBY)
-      page.all('.items').first.click
-      ^^^^^^^^^^^^^^^^^^^^^^^^ Use `page.first(...)` or `match: :first` [...]
+    expect_offense(<<~RUBY, code: "page.all('.items').first")
+      %{code}.click
+      ^{code} Use `page.first(...)` or `match: :first` [...]
     RUBY
   end
 
   it 'registers an offense for all().last without count option' do
-    expect_offense(<<~RUBY)
-      page.all('.items').last
-      ^^^^^^^^^^^^^^^^^^^^^^^ Verify element count before using `.last` [...]
+    expect_offense(<<~RUBY, code: "page.all('.items').last")
+      %{code}
+      ^{code} Verify element count before using `.last` [...]
     RUBY
   end
 
   it 'registers an offense for all().last.click without count option' do
-    expect_offense(<<~RUBY)
-      page.all('.items').last.click
-      ^^^^^^^^^^^^^^^^^^^^^^^ Verify element count before using `.last` [...]
+    expect_offense(<<~RUBY, code: "page.all('.items').last")
+      %{code}.click
+      ^{code} Verify element count before using `.last` [...]
     RUBY
   end
 
   it 'registers an offense for find_all().first' do
-    expect_offense(<<~RUBY)
-      page.find_all('.items').first
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `page.first(...)` or `match: :first` [...]
+    expect_offense(<<~RUBY, code: "page.find_all('.items').first")
+      %{code}
+      ^{code} Use `page.first(...)` or `match: :first` [...]
     RUBY
   end
 

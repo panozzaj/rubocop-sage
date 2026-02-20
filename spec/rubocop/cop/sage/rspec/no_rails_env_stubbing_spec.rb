@@ -5,39 +5,39 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoRailsEnvStubbing, :config do
 
   context 'when stubbing predicates on Rails.env' do
     it 'registers an offense for allow(Rails.env).to receive(:production?)' do
-      expect_offense(<<~RUBY)
-        allow(Rails.env).to receive(:production?).and_return(true)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't stub Rails.env in tests. Extract environment-dependent behavior behind configuration instead.
+      expect_offense(<<~RUBY, code: 'allow(Rails.env).to receive(:production?).and_return(true)')
+        %{code}
+        ^{code} Don't stub Rails.env in tests. [...]
       RUBY
     end
 
     it 'registers an offense for allow(Rails.env).to receive(:test?)' do
-      expect_offense(<<~RUBY)
-        allow(Rails.env).to receive(:test?).and_return(false)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't stub Rails.env in tests. Extract environment-dependent behavior behind configuration instead.
+      expect_offense(<<~RUBY, code: 'allow(Rails.env).to receive(:test?).and_return(false)')
+        %{code}
+        ^{code} Don't stub Rails.env in tests. [...]
       RUBY
     end
 
     it 'registers an offense for allow(Rails.env).to receive(:development?)' do
-      expect_offense(<<~RUBY)
-        allow(Rails.env).to receive(:development?).and_return(true)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't stub Rails.env in tests. Extract environment-dependent behavior behind configuration instead.
+      expect_offense(<<~RUBY, code: 'allow(Rails.env).to receive(:development?).and_return(true)')
+        %{code}
+        ^{code} Don't stub Rails.env in tests. [...]
       RUBY
     end
   end
 
   context 'when stubbing Rails.env itself' do
     it 'registers an offense for allow(Rails).to receive(:env).and_return(...)' do
-      expect_offense(<<~RUBY)
-        allow(Rails).to receive(:env).and_return("production".inquiry)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't stub Rails.env in tests. Extract environment-dependent behavior behind configuration instead.
+      expect_offense(<<~RUBY, code: 'allow(Rails).to receive(:env).and_return("production".inquiry)')
+        %{code}
+        ^{code} Don't stub Rails.env in tests. [...]
       RUBY
     end
 
     it 'registers an offense for bare allow(Rails).to receive(:env)' do
-      expect_offense(<<~RUBY)
-        allow(Rails).to receive(:env)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't stub Rails.env in tests. Extract environment-dependent behavior behind configuration instead.
+      expect_offense(<<~RUBY, code: 'allow(Rails).to receive(:env)')
+        %{code}
+        ^{code} Don't stub Rails.env in tests. [...]
       RUBY
     end
   end

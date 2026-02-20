@@ -4,37 +4,37 @@ RSpec.describe RuboCop::Cop::Sage::RSpec::NoEnvStubbing, :config do
   let(:gem_versions) { { 'rspec-core' => '3.0' } }
 
   it 'registers an offense for allow(ENV).to receive(:fetch) with args' do
-    expect_offense(<<~RUBY)
-      allow(ENV).to receive(:fetch).with("APP_NAME").and_return("my_app")
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use ClimateControl.modify instead of stubbing ENV in tests.
+    expect_offense(<<~RUBY, code: 'allow(ENV).to receive(:fetch).with("APP_NAME").and_return("my_app")')
+      %{code}
+      ^{code} Use ClimateControl.modify instead of stubbing ENV in tests.
     RUBY
   end
 
   it 'registers an offense for allow(ENV).to receive(:fetch).and_call_original' do
-    expect_offense(<<~RUBY)
-      allow(ENV).to receive(:fetch).and_call_original
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use ClimateControl.modify instead of stubbing ENV in tests.
+    expect_offense(<<~RUBY, code: 'allow(ENV).to receive(:fetch).and_call_original')
+      %{code}
+      ^{code} Use ClimateControl.modify instead of stubbing ENV in tests.
     RUBY
   end
 
   it 'registers an offense for allow(ENV).to receive(:[])' do
-    expect_offense(<<~RUBY)
-      allow(ENV).to receive(:[]).with("APP_NAME").and_return("my_app")
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use ClimateControl.modify instead of stubbing ENV in tests.
+    expect_offense(<<~RUBY, code: 'allow(ENV).to receive(:[]).with("APP_NAME").and_return("my_app")')
+      %{code}
+      ^{code} Use ClimateControl.modify instead of stubbing ENV in tests.
     RUBY
   end
 
   it 'registers an offense for allow(ENV).to receive(:fetch) with multiple args' do
-    expect_offense(<<~RUBY)
-      allow(ENV).to receive(:fetch).with("FEATURE_FLAG", anything).and_return(false)
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use ClimateControl.modify instead of stubbing ENV in tests.
+    expect_offense(<<~RUBY, code: 'allow(ENV).to receive(:fetch).with("FEATURE_FLAG", anything).and_return(false)')
+      %{code}
+      ^{code} Use ClimateControl.modify instead of stubbing ENV in tests.
     RUBY
   end
 
   it 'registers an offense for bare allow(ENV).to receive(:fetch)' do
-    expect_offense(<<~RUBY)
-      allow(ENV).to receive(:fetch)
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use ClimateControl.modify instead of stubbing ENV in tests.
+    expect_offense(<<~RUBY, code: 'allow(ENV).to receive(:fetch)')
+      %{code}
+      ^{code} Use ClimateControl.modify instead of stubbing ENV in tests.
     RUBY
   end
 
