@@ -22,6 +22,13 @@ gem install rubocop-sage
 Add to your `.rubocop.yml`:
 
 ```yaml
+plugins:
+  - rubocop-sage
+```
+
+For older versions of RuboCop (< 1.72), use `require:` instead:
+
+```yaml
 require:
   - rubocop-sage
 ```
