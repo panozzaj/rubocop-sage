@@ -48,3 +48,8 @@ Sage/RSpec/NoRescue:
   Description: 'Avoid rescue blocks in test examples. Tests should fail loudly.'
   Enabled: true
   VersionAdded: '0.1'
+
+Sage/RSpec/PreferHaveHttpStatus:
+  Description: 'Use `have_http_status` instead of predicate matchers like `be_successful` on response objects for clearer failure messages.'
+  Enabled: true
+  VersionAdded: '0.1'
