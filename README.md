@@ -1,7 +1,14 @@
 # RuboCop Sage
 
-Custom RuboCop cops for opinionated best practices in Ruby projects. Designed
-with clear, concise output suitable for LLM agents.
+A collection of custom RuboCop cops.
+
+These cops are primarily focused on:
+
+ - preventing common coding agent shortcuts/hacks/antipatterns, especially in tests
+ - reducing flaky test assertions
+ - catching subtle bugs
+
+Designed with clear, concise output suitable for both humans and LLM agents. And autocorrection where possible to keep your code moving along.
 
 ## Installation
 
