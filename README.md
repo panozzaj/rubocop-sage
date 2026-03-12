@@ -5,17 +5,13 @@ with clear, concise output suitable for LLM agents.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add to your Gemfile:
 
 ```ruby
-gem 'rubocop-sage', require: false
+gem 'rubocop-sage', github: 'panozzaj/rubocop-sage', require: false
 ```
 
-Or install it yourself:
-
-```bash
-gem install rubocop-sage
-```
+Then `bundle install`.
 
 ## Usage
 
@@ -26,12 +22,7 @@ plugins:
   - rubocop-sage
 ```
 
-For older versions of RuboCop (< 1.72), use `require:` instead:
-
-```yaml
-require:
-  - rubocop-sage
-```
+For RuboCop < 1.72, use `require:` instead of `plugins:`.
 
 ## Cops
 
@@ -39,93 +30,67 @@ require:
 
 ### Capybara
 
-- [`Sage/Capybara/PreferNoMethods`](docs/cops/capybara/prefer_no_methods.md) -
-  Use `has_no_*?` instead of `!has_*?` for Capybara matchers
-- [`Sage/Capybara/AvoidExplicitVisible`](docs/cops/capybara/avoid_explicit_visible.md) -
-  Avoid explicit `visible: true` as it is the default
-- [`Sage/Capybara/NoWaitZero`](docs/cops/capybara/no_wait_zero.md) - Avoid
-  `wait: 0` which disables waiting and causes flaky tests
-- [`Sage/Capybara/MatchStyle`](docs/cops/capybara/match_style.md) - Prefer
-  `first()` over `all().first` for better reliability
+| Cop | Description | Autocorrect |
+|-----|-------------|:-----------:|
+| [`Sage/Capybara/AvoidExplicitVisible`](docs/cops/capybara/avoid_explicit_visible.md) | Avoid explicit `visible: true` as it is the default | Yes |
+| [`Sage/Capybara/MatchStyle`](docs/cops/capybara/match_style.md) | Prefer `first()` over `all().first` for better reliability | No |
+| [`Sage/Capybara/NoWaitZero`](docs/cops/capybara/no_wait_zero.md) | Avoid `wait: 0` which disables waiting and causes flaky tests | Yes |
+| [`Sage/Capybara/PreferNoMethods`](docs/cops/capybara/prefer_no_methods.md) | Use `has_no_*?` instead of `!has_*?` for Capybara matchers | Yes |
 
 ### Rails
 
-- [`Sage/Rails/AllWithBlock`](docs/cops/rails/all_with_block.md) - `.all`
-  ignores blocks; use `.find_each` or `.all.each` instead
+| Cop | Description | Autocorrect |
+|-----|-------------|:-----------:|
+| [`Sage/Rails/AllWithBlock`](docs/cops/rails/all_with_block.md) | `.all` ignores blocks; use `.find_each` or `.all.each` instead | No |
 
 ### RSpec
 
-- [`Sage/RSpec/NoEnvAssignment`](docs/cops/rspec/no_env_assignment.md) - Use
-  ClimateControl instead of direct ENV assignment
-- [`Sage/RSpec/NoEnvStubbing`](docs/cops/rspec/no_env_stubbing.md) - Use
-  ClimateControl instead of stubbing ENV with `allow`/`receive`
-- [`Sage/RSpec/NoRailsEnvStubbing`](docs/cops/rspec/no_rails_env_stubbing.md) -
-  Don't stub `Rails.env`; use configuration instead
-- [`Sage/RSpec/NoConditionals`](docs/cops/rspec/no_conditionals.md) - Avoid
-  conditional statements in test examples
-- [`Sage/RSpec/NoRescue`](docs/cops/rspec/no_rescue.md) - Avoid rescue blocks in
-  test examples
-- [`Sage/RSpec/RedundantTypeAndEmpty`](docs/cops/rspec/redundant_type_and_empty.md) -
-  Use `eq([])` or `eq({})` instead of separate type and emptiness checks
-
-## Development
-
-After checking out the repo, run `bundle install` to install dependencies. Then,
-run `bundle exec rspec` to run the tests.
+| Cop | Description | Autocorrect |
+|-----|-------------|:-----------:|
+| [`Sage/RSpec/NoConditionals`](docs/cops/rspec/no_conditionals.md) | Avoid conditional statements in test examples | No |
+| [`Sage/RSpec/NoEnvAssignment`](docs/cops/rspec/no_env_assignment.md) | Use ClimateControl instead of direct ENV assignment | No |
+| [`Sage/RSpec/NoEnvStubbing`](docs/cops/rspec/no_env_stubbing.md) | Use ClimateControl instead of stubbing ENV with `allow`/`receive` | No |
+| [`Sage/RSpec/NoRailsEnvStubbing`](docs/cops/rspec/no_rails_env_stubbing.md) | Don't stub `Rails.env`; use configuration instead | No |
+| [`Sage/RSpec/NoRescue`](docs/cops/rspec/no_rescue.md) | Avoid rescue blocks in test examples | No |
+| [`Sage/RSpec/PreferHaveHttpStatus`](docs/cops/rspec/prefer_have_http_status.md) | Use `have_http_status` instead of predicate matchers on response objects | Yes |
+| [`Sage/RSpec/RedundantTypeAndEmpty`](docs/cops/rspec/redundant_type_and_empty.md) | Use `eq([])` or `eq({})` instead of separate type and emptiness checks | Yes |
 
 ## Philosophy
 
 ### Design for LLM Agents
 
-This gem is designed with LLM agents in mind. All cop messages are:
-
-- **Concise**: Get straight to the point
-- **Clear**: Explain what and why without jargon
-- **Actionable**: Provide the correct alternative
+All cop messages are concise, clear, and actionable — they explain what's wrong
+and provide the correct alternative. This makes them useful as direct feedback
+for LLM coding agents.
 
 ### Namespace Organization
 
 Cops are organized by domain:
 
-- `Sage/Capybara/*` - Capybara testing best practices
-- `Sage/RSpec/*` - RSpec testing best practices
-- `Sage/Rails/*` - Rails best practices (future)
+- `Sage/Capybara/*` — Capybara testing best practices
+- `Sage/RSpec/*` — RSpec testing best practices
+- `Sage/Rails/*` — Rails best practices
 
-### Avoiding Duplicates
+### Complementary Gems
 
-Before adding a new cop, we check if an equivalent rule exists in popular
-RuboCop extensions (> 100 GitHub stars). If one exists, we prefer using that
-instead.
+Before adding a new cop, we check if an equivalent rule exists in established
+RuboCop extensions. These gems work well alongside rubocop-sage:
 
-**Recommended companion gems:**
+- [`rubocop-capybara`](https://github.com/rubocop/rubocop-capybara)
+- [`rubocop-rspec`](https://github.com/rubocop/rubocop-rspec)
+- [`rubocop-rspec_rails`](https://github.com/rubocop/rubocop-rspec_rails)
 
-- [`rubocop-capybara`](https://github.com/rubocop/rubocop-capybara) - Includes
-  `Capybara/CurrentPathExpectation` (use `have_current_path` instead of
-  asserting on `current_path` directly) and other useful Capybara cops
-- [`rubocop-rspec`](https://github.com/rubocop/rubocop-rspec) - Comprehensive
-  RSpec style checking
-- [`rubocop-rspec_rails`](https://github.com/rubocop/rubocop-rspec_rails) -
-  RSpec Rails-specific cops, including `RSpecRails/InferredSpecType` which
-  removes redundant `type:` metadata when `infer_spec_type_from_file_location!`
-  is enabled (e.g., `type: :request` in `spec/requests/`)
+## Development
 
-Example `.rubocop.yml` with recommended setup:
-
-```yaml
-require:
-  - rubocop-sage
-  - rubocop-capybara
-  - rubocop-rspec
-  - rubocop-rspec_rails
-
-RSpecRails/InferredSpecType:
-  Enabled: true
+```bash
+bundle install
+bundle exec rspec
 ```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at the repository location.
+Bug reports and pull requests are welcome on [GitHub](https://github.com/panozzaj/rubocop-sage).
 
 ## License
 
-The gem is available as open source under the terms of the MIT License.
+Available as open source under the [MIT License](LICENSE.txt).
