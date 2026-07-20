@@ -29,6 +29,11 @@ Sage/Minitest/AvoidAssertNothingRaised:
   Enabled: true
   VersionAdded: '0.1'
 
+Sage/Minitest/NoEnvAssignment:
+  Description: 'Use ClimateControl.modify to change ENV in tests instead of direct assignment.'
+  Enabled: true
+  VersionAdded: '0.1'
+
 Sage/RSpec/AvoidNotToRaiseError:
   Description: 'Avoid `expect { ... }.not_to raise_error`. Assert what the code should do, not that it doesn''t crash.'
   Enabled: true
