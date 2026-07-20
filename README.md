@@ -54,6 +54,7 @@ For RuboCop < 1.72, use `require:` instead of `plugins:`.
 
 | Cop | Description | Autocorrect |
 |-----|-------------|:-----------:|
+| [`Sage/RSpec/AvoidNotToRaiseError`](docs/cops/rspec/avoid_not_to_raise_error.md) | Avoid `not_to raise_error` — assert what the code *should do*, not that it doesn't crash | No |
 | [`Sage/RSpec/NoConditionals`](docs/cops/rspec/no_conditionals.md) | Avoid conditional statements in test examples | No |
 | [`Sage/RSpec/NoEnvAssignment`](docs/cops/rspec/no_env_assignment.md) | Use ClimateControl instead of direct ENV assignment | No |
 | [`Sage/RSpec/NoEnvStubbing`](docs/cops/rspec/no_env_stubbing.md) | Use ClimateControl instead of stubbing ENV with `allow`/`receive` | No |
