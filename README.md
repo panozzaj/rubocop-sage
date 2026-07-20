@@ -44,6 +44,12 @@ For RuboCop < 1.72, use `require:` instead of `plugins:`.
 | [`Sage/Capybara/NoWaitZero`](docs/cops/capybara/no_wait_zero.md) | Avoid `wait: 0` which disables waiting and causes flaky tests | Yes |
 | [`Sage/Capybara/PreferNoMethods`](docs/cops/capybara/prefer_no_methods.md) | Use `has_no_*?` instead of `!has_*?` for Capybara matchers | Yes |
 
+### Minitest
+
+| Cop | Description | Autocorrect |
+|-----|-------------|:-----------:|
+| [`Sage/Minitest/AvoidAssertNothingRaised`](docs/cops/minitest/avoid_assert_nothing_raised.md) | Avoid `assert_nothing_raised` — assert what the code *should do*, not that it doesn't crash | No |
+
 ### Rails
 
 | Cop | Description | Autocorrect |
@@ -76,6 +82,7 @@ for LLM coding agents.
 Cops are organized by domain:
 
 - `Sage/Capybara/*` — Capybara testing best practices
+- `Sage/Minitest/*` — Minitest testing best practices
 - `Sage/RSpec/*` — RSpec testing best practices
 - `Sage/Rails/*` — Rails best practices
 
@@ -85,6 +92,7 @@ Before adding a new cop, we check if an equivalent rule exists in established
 RuboCop extensions. These gems work well alongside rubocop-sage:
 
 - [`rubocop-capybara`](https://github.com/rubocop/rubocop-capybara)
+- [`rubocop-minitest`](https://github.com/rubocop/rubocop-minitest)
 - [`rubocop-rspec`](https://github.com/rubocop/rubocop-rspec)
 - [`rubocop-rspec_rails`](https://github.com/rubocop/rubocop-rspec_rails)
 
