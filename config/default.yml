@@ -29,6 +29,11 @@ Sage/Minitest/AvoidAssertNothingRaised:
   Enabled: true
   VersionAdded: '0.1'
 
+Sage/Minitest/NoConditionals:
+  Description: 'Avoid conditional statements in test methods for deterministic tests.'
+  Enabled: true
+  VersionAdded: '0.1'
+
 Sage/Minitest/NoEnvAssignment:
   Description: 'Use ClimateControl.modify to change ENV in tests instead of direct assignment.'
   Enabled: true

@@ -49,6 +49,7 @@ For RuboCop < 1.72, use `require:` instead of `plugins:`.
 | Cop | Description | Autocorrect |
 |-----|-------------|:-----------:|
 | [`Sage/Minitest/AvoidAssertNothingRaised`](docs/cops/minitest/avoid_assert_nothing_raised.md) | Avoid `assert_nothing_raised` — assert what the code *should do*, not that it doesn't crash | No |
+| [`Sage/Minitest/NoConditionals`](docs/cops/minitest/no_conditionals.md) | Avoid conditional statements in test methods | No |
 | [`Sage/Minitest/NoEnvAssignment`](docs/cops/minitest/no_env_assignment.md) | Use ClimateControl instead of direct ENV assignment | No |
 
 ### Rails
