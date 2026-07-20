@@ -39,6 +39,11 @@ Sage/Minitest/NoEnvAssignment:
   Enabled: true
   VersionAdded: '0.1'
 
+Sage/Minitest/NoRailsEnvStubbing:
+  Description: 'Don''t stub Rails.env in tests. Extract environment-dependent behavior behind configuration instead.'
+  Enabled: true
+  VersionAdded: '0.1'
+
 Sage/Minitest/NoRescue:
   Description: 'Avoid rescue blocks in test methods. Tests should fail loudly.'
   Enabled: true
